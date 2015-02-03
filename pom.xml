@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>net.lizalab.util</groupId>
+  <artifactId>jasypt-hibernate4-ext</artifactId>
+  <packaging>pom</packaging>
+  <version>0.0.0.1-SNAPSHOT</version>
+
+  <name>jasypt-hibernate4 Extensions</name>
+  <description>Updates to the jasypt-hibernate4 artifact for the API changes in Hibernate 4.2.x and 4.3.x</description>
+
+  <url>https://github.com/hpadmanabhan/jasypt-hibernate4-ext</url>
+
+  <licenses>
+    <license>
+      <name>The Apache Software License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+
+  <developers>
+    <developer>
+      <name>Hemant Padmanabhan</name>
+      <email>padmanabhanhemant at gmail dot com</email>
+    </developer>
+  </developers>
+
+  <scm>
+    <url>git@github.com:hpadmanabhan/jasypt-hibernate4-ext.git</url>
+    <connection>scm:git:git@github.com:hpadmanabhan/jasypt-hibernate4-ext.git</connection>
+    <developerConnection>scm:git:git@github.com:hpadmanabhan/jasypt-hibernate4-ext.git</developerConnection>
+  </scm>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
+  <modules>
+    <module>jasypt-hibernate4-ext-42x</module>
+    <module>jasypt-hibernate4-ext-43x</module>
+  </modules>
+
+  <distributionManagement>
+    <repository>
+      <id>${rel-repo-id}</id>
+      <name>${rel-repo-name}</name>
+      <url>${rel-repo-url}</url>
+    </repository>
+    <snapshotRepository>
+      <id>${snap-repo-id}</id>
+      <name>${snap-repo-name}</name>
+      <url>${snap-repo-url}</url>
+      <uniqueVersion>false</uniqueVersion>
+      <layout>default</layout>
+    </snapshotRepository>
+    <site>
+      <id>${site-id}</id>
+      <name>${site-name}</name>
+      <url>${site-url}/${project.groupId}/${project.artifactId}/${project.version}</url>
+    </site>
+  </distributionManagement>
+
+  <dependencies>
+    <!-- Jasypt encryption integration module for Hibernate4. -->
+    <dependency>
+      <groupId>org.jasypt</groupId>
+      <artifactId>jasypt-hibernate4</artifactId>
+      <version>1.9.2</version>
+    </dependency>
+    <!-- Logging Facade. -->
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+      <version>1.7.2</version>
+      <scope>provided</scope>
+      <optional>true</optional>
+    </dependency>
+    <!-- JDBC connection pooling and statement caching library. -->
+    <dependency>
+      <groupId>com.mchange</groupId>
+      <artifactId>c3p0</artifactId>
+      <version>0.9.2.1</version>
+    </dependency>
+    <!-- Testing Support. -->
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.11</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+  
+  <build>
+  	<plugins>
+  	  <plugin>
+  	  	<groupId>org.apache.maven.plugins</groupId>
+  	  	<artifactId>maven-compiler-plugin</artifactId>
+  	  	<version>3.2</version>
+  	  	<configuration>
+  	  	  <forceJavacCompilerUse>true</forceJavacCompilerUse>
+  	  	  <source>1.7</source>
+  	  	  <target>1.7</target>
+  	  	</configuration>
+  	  </plugin>
+  	  <plugin>
+  	  	<groupId>org.apache.maven.plugins</groupId>
+  	  	<artifactId>maven-javadoc-plugin</artifactId>
+  	  	<version>2.10.1</version>
+  	  	<configuration>
+  	  	  <show>protected</show>
+  	  	</configuration>
+  	  </plugin>
+  	  <plugin>
+  	  	<groupId>org.apache.maven.plugins</groupId>
+  	  	<artifactId>maven-source-plugin</artifactId>
+  	  	<version>2.4</version>
+  	  	<executions>
+  	  	  <execution>
+  	  	    <id>attach-sources</id>
+  	  	    <phase>verify</phase>
+  	  	    <goals>
+  	  	      <goal>jar-no-fork</goal>
+  	  	    </goals>
+  	  	  </execution>
+  	  	</executions>
+  	  </plugin>
+  	  <!-- For executing Git-flow based actions including releases. -->
+  	  <plugin>
+  	  	<groupId>external.atlassian.jgitflow</groupId>
+  	  	<artifactId>jgitflow-maven-plugin</artifactId>
+  	  	<version>1.0-m4.3</version>
+  	  	<configuration>
+  	  	  <flowInitContext>
+  	  	  	<masterBranchName>master</masterBranchName>
+  	  	  	<developBranchName>develop</developBranchName>
+  	  	  	<featureBranchPrefix>feature-</featureBranchPrefix>
+  	  	  	<releaseBranchPrefix>release-</releaseBranchPrefix>
+  	  	  	<hotfixBranchPrefix>hotfix-</hotfixBranchPrefix>
+  	  	  </flowInitContext>
+  	  	  <!-- For pushes. -->
+  	  	  <enableSshAgent>true</enableSshAgent>
+  	  	  <!-- Default to pushing features for remote backups. -->
+  	  	  <pushFeatures>true</pushFeatures>
+  	  	  <!-- Deploy releases to repos specified in distributionManagement. -->
+  	  	  <noDeploy>false</noDeploy>
+  	  	</configuration>
+  	  </plugin>
+  	  <!-- Strictly for dev releases to update snapshot versions, actual releases handled by jgitflow. -->
+  	  <plugin>
+  	  	<groupId>org.apache.maven.plugins</groupId>
+  	  	<artifactId>maven-release-plugin</artifactId>
+  	  	<version>2.5.1</version>
+  	  </plugin>
+  	  <!-- Used in tagging dev releases and incrementing dev snapshot versions. -->
+  	  <plugin>
+  	  	<artifactId>maven-scm-plugin</artifactId>
+  	  	<version>1.9.2</version>
+  	  	<configuration>
+  	  	  <basedir>${project.basedir}</basedir>
+  	  	  <tag>${project.version}</tag>
+  	  	</configuration>
+  	  </plugin>
+  	</plugins>
+  </build>
+
+</project>
