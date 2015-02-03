@@ -1,0 +1,62 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>net.lizalab.util</groupId>
+  <artifactId>jasypt-hibernate4-ext</artifactId>
+  <packaging>pom</packaging>
+  <version>0.0.0.1-SNAPSHOT</version>
+
+  <name>jasypt-hibernate4 Extensions</name>
+  <description>Updates to the jasypt-hibernate4 artifact for the API changes in Hibernate 4.2.x and 4.3.x</description>
+
+  <url>https://github.com/hpadmanabhan/jasypt-hibernate4-ext</url>
+
+  <licenses>
+    <license>
+      <name>The Apache Software License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+
+  <developers>
+    <developer>
+      <name>Hemant Padmanabhan</name>
+      <email>padmanabhanhemant at gmail dot com</email>
+    </developer>
+  </developers>
+
+  <scm>
+    <url>git@github.com:hpadmanabhan/jasypt-hibernate4-ext.git</url>
+    <connection>scm:git:git@github.com:hpadmanabhan/jasypt-hibernate4-ext.git</connection>
+    <developerConnection>scm:git:git@github.com:hpadmanabhan/jasypt-hibernate4-ext.git</developerConnection>
+  </scm>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
+  <dependencies>
+    <!-- Jasypt encryption integration module for Hibernate4. -->
+    <dependency>
+      <groupId>org.jasypt</groupId>
+      <artifactId>jasypt-hibernate4</artifactId>
+      <version>1.9.2</version>
+    </dependency>
+    <!-- Logging Facade. -->
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+      <version>1.7.2</version> 
+    </dependency>
+    <!-- Testing Support. -->
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.11</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+</project>
