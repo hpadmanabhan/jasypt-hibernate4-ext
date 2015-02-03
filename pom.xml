@@ -1,5 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>net.lizalab.util</groupId>
@@ -37,6 +37,11 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 
+  <modules>
+    <module>jasypt-hibernate4-ext-42x</module>
+    <module>jasypt-hibernate4-ext-43x</module>
+  </modules>
+
   <dependencies>
     <!-- Jasypt encryption integration module for Hibernate4. -->
     <dependency>
@@ -48,7 +53,15 @@
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
-      <version>1.7.2</version> 
+      <version>1.7.2</version>
+      <scope>provided</scope>
+      <optional>true</optional>
+    </dependency>
+    <!-- JDBC connection pooling and statement caching library. -->
+    <dependency>
+      <groupId>com.mchange</groupId>
+      <artifactId>c3p0</artifactId>
+      <version>0.9.2.1</version>
     </dependency>
     <!-- Testing Support. -->
     <dependency>
