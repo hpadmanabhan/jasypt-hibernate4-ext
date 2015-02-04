@@ -46,5 +46,45 @@
       <optional>true</optional>
     </dependency>
   </dependencies>
+  
+  <build>
+    <extensions>
+      <!-- Database and driver for Integration Tests. -->
+      <extension>
+        <groupId>org.hsqldb</groupId>
+        <artifactId>hsqldb</artifactId>
+        <version>2.3.2</version>
+      </extension>
+    </extensions>
+    <plugins>
+  	  <!-- Setup the database for Integration tests. -->
+  	  <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>sql-maven-plugin</artifactId>
+        <version>1.5</version>
+        <configuration>
+          <driver>org.hsqldb.jdbcDriver</driver>
+          <url>jdbc:hsqldb:file:target/data/test43xdb;shutdown=true</url>
+          <username>sa</username>
+          <password></password>
+        </configuration>
+        <executions>
+          <execution>
+            <id>create-test-user</id>
+            <phase>pre-integration-test</phase>
+            <goals>
+              <goal>execute</goal>
+            </goals>
+            <configuration>
+              <autocommit>true</autocommit>
+              <srcFiles>
+                <srcFile>src/test/resources/test-user.sql</srcFile>
+              </srcFiles>
+            </configuration>
+          </execution>
+        </executions>
+  	  </plugin>
+    </plugins>
+  </build>
 
 </project>
