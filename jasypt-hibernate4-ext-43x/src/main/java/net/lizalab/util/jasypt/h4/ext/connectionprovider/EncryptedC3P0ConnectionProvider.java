@@ -29,16 +29,101 @@ import org.jasypt.properties.PropertyValueEncryptionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * 
+ * <p>
+ * Extension of Hibernate 4.3.x API version of {@link C3P0ConnectionProvider}
+ * that allows the user to write the datasource configuration parameters in an
+ * encrypted manner in the <tt>hibernate.cfg.xml</tt> or
+ * <tt>hibernate.properties</tt> files.
+ * </p>
+ * <p>
+ * The parameters that can be encrypted are:
+ * <ul>
+ * <li><tt>hibernate.connection.driver_class</tt></li>
+ * <li><tt>hibernate.connection.url</tt></li>
+ * <li><tt>hibernate.connection.username</tt></li>
+ * <li><tt>hibernate.connection.password</tt></li>
+ * </ul>
+ * </p>
+ * <p>
+ * The name of the PBE encryptor (decryptor, in fact) must be set in the
+ * property <tt>hibernate.connection.encryptor_registered_name</tt> in
+ * <tt>hibernate.cfg.xml</tt>. Its value must be the name of a
+ * {@link PBEStringEncryptor} object previously registered with
+ * {@link HibernatePBEEncryptorRegistry}. <b>NOTE:</b> Encryptor registration
+ * needs to happen BEFORE the Hibernate configuration gets loaded to bootstrap a
+ * {@link org.hibernate.SessionFactory}.
+ * </p>
+ * <p>
+ * An example <tt>hibernate.cfg.xml</tt> file configured to use this connection
+ * provider implementation:
+ * </p>
+ * <p>
+ * 
+ * <pre>
+ *  &lt;hibernate-configuration>
+ * 
+ *    &lt;session-factory>
+ * 
+ *      <!-- Database connection settings -->
+ *      &lt;property name="<b>hibernate.connection.provider_class</b>">net.lizalab.util.jasypt.h4.ext.connectionprovider.EncryptedC3P0ConnectionProvider&lt;/property>
+ *      &lt;property name="<b>hibernate.connection.encryptor_registered_name</b>">stringEncryptor&lt;/property>
+ *      &lt;property name="hibernate.connection.driver_class">org.postgresql.Driver&lt;/property>
+ *      &lt;property name="hibernate.connection.url">jdbc:postgresql://localhost/mydatabase&lt;/property>
+ *      &lt;property name="hibernate.connection.username">myuser&lt;/property>
+ *      &lt;property name="hibernate.connection.password">ENC(T6DAe34NasW==)&lt;/property>
+ *      &lt;property name="hibernate.c3p0.min_size">5&lt;/property>
+ *      &lt;property name="hibernate.c3p0.max_size">20&lt;/property>
+ *      &lt;property name="hibernate.c3p0.timeout">1800&lt;/property>
+ *      &lt;property name="hibernate.c3p0.max_statements">50&lt;/property>
+ *      ...
+ *      
+ *    &lt;/session-factory>
+ *    
+ *    ...
+ *    
+ *  &lt;/hibernate-configuration>
+ * </pre>
+ * 
+ * </p>
+ * <p>
+ * <b>IMPORTANT:</b> Encrypted values specified must be enclosed in 'ENC(...)'
+ * as shown above for them to be picked up and decrypted.
+ * </p>
+ * 
+ * @author Hemant Padmanabhan
+ * @since 1.0.0
+ */
 public class EncryptedC3P0ConnectionProvider extends C3P0ConnectionProvider {
 
 	private static final long serialVersionUID = -5712348739957144201L;
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(EncryptedC3P0ConnectionProvider.class);
 
+	/**
+	 * Default constructor, simply invokes parent no args constructor.
+	 */
 	public EncryptedC3P0ConnectionProvider() {
 		super();
 	}
 
+	/**
+	 * Overrides parent method to scan and replace encrypted configuration values
+	 * with their corresponding decrypted values before invoking the parent with
+	 * them.
+	 * <p>
+	 * Looks in the configuration for the name with which the PBE encryptor has been
+	 * registered with {@link HibernatePBEEncryptorRegistry} using the key 
+	 * {@link ParameterNaming#ENCRYPTOR_REGISTERED_NAME}.
+	 * Scans the configuration for supported connection configuration values, checks
+	 * to see if they are encrypted and replaces them with the decrypted values if
+	 * they are.
+	 * </p>
+	 * @throws EncryptionInitializationException If the PBE encryptor registered name
+	 * configuration cannot be found or if lookup by the registered name does not return
+	 * a valid encryptor.
+	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Override
 	public void configure(Map configurationValues) {
@@ -74,6 +159,15 @@ public class EncryptedC3P0ConnectionProvider extends C3P0ConnectionProvider {
 		super.configure(configurationValues);
 	}
 
+	/**
+	 * Checks if the provided value is encrypted, if yes, uses the provided 
+	 * encryptor to decrypt it.
+	 * 
+	 * @param encryptor - The encryptor to use to decrypt an encrypted value.
+	 * @param propName - Name of the configuration property the value belongs to. 
+	 * @param value - The configuration value to be decrypted if encrypted.
+	 * @return The value unchanged if not encrypted, else its decrypted equivalent.
+	 */
 	private String decryptIfEncrypted(PBEStringEncryptor encryptor, String propName, String value) {
 		final String methodName = "decryptIfEncrypted : ";
 		
