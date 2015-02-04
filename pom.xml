@@ -59,23 +59,14 @@
   </modules>
 
   <distributionManagement>
-    <repository>
-      <id>${rel-repo-id}</id>
-      <name>${rel-repo-name}</name>
-      <url>${rel-repo-url}</url>
-    </repository>
     <snapshotRepository>
-      <id>${snap-repo-id}</id>
-      <name>${snap-repo-name}</name>
-      <url>${snap-repo-url}</url>
-      <uniqueVersion>false</uniqueVersion>
-      <layout>default</layout>
+      <id>ossrh</id>
+      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
     </snapshotRepository>
-    <site>
-      <id>${site-id}</id>
-      <name>${site-name}</name>
-      <url>${site-url}/${project.groupId}/${project.artifactId}/${project.version}</url>
-    </site>
+    <repository>
+      <id>ossrh</id>
+      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+    </repository>
   </distributionManagement>
 
   <dependencies>
@@ -153,7 +144,6 @@
   	  	<executions>
   	  	  <execution>
   	  	    <id>attach-sources</id>
-  	  	    <phase>verify</phase>
   	  	    <goals>
   	  	      <goal>jar-no-fork</goal>
   	  	    </goals>
