@@ -21,7 +21,7 @@
   <parent>
     <groupId>net.lizalab.util</groupId>
     <artifactId>jasypt-hibernate4-ext</artifactId>
-    <version>0.0.0.2-SNAPSHOT</version>
+    <version>0.0.0.3-SNAPSHOT</version>
   </parent>
 
   <artifactId>jasypt-hibernate4-ext-43x</artifactId>
@@ -66,7 +66,7 @@
           <driver>org.hsqldb.jdbcDriver</driver>
           <url>jdbc:hsqldb:file:target/data/test43xdb;shutdown=true</url>
           <username>sa</username>
-          <password></password>
+          <password />
         </configuration>
         <executions>
           <execution>
