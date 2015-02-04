@@ -21,7 +21,7 @@
   <parent>
     <groupId>net.lizalab.util</groupId>
     <artifactId>jasypt-hibernate4-ext</artifactId>
-    <version>0.0.0.3-SNAPSHOT</version>
+    <version>1.0.0.1-SNAPSHOT</version>
   </parent>
 
   <artifactId>jasypt-hibernate4-ext-43x</artifactId>
