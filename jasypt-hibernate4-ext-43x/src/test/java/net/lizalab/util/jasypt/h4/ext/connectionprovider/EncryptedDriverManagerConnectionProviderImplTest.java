@@ -34,6 +34,12 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
+/**
+ * Unit tests for {@link EncryptedDriverManagerConnectionProviderImpl}.
+ * 
+ * @author Hemant Padmanabhan
+ * @since 1.0.0
+ */
 public class EncryptedDriverManagerConnectionProviderImplTest {
 
 	
