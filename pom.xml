@@ -21,7 +21,7 @@
   <groupId>net.lizalab.util</groupId>
   <artifactId>jasypt-hibernate4-ext</artifactId>
   <packaging>pom</packaging>
-  <version>1.0.0-SNAPSHOT</version>
+  <version>1.0.0</version>
 
   <name>jasypt-hibernate4 Extensions</name>
   <description>Updates to the jasypt-hibernate4 artifact for the API changes in Hibernate 4.2.x and 4.3.x</description>
