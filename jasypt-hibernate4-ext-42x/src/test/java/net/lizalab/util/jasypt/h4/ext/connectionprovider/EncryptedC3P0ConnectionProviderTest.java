@@ -36,6 +36,12 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
+/**
+ * Unit tests for {@link EncryptedC3P0ConnectionProvider}.
+ * 
+ * @author Hemant Padmanabhan
+ * @since 1.0.0
+ */
 public class EncryptedC3P0ConnectionProviderTest {
 
 	@Rule

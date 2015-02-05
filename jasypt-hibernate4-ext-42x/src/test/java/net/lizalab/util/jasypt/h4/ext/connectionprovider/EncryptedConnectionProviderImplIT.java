@@ -28,6 +28,18 @@ import org.jasypt.hibernate4.encryptor.HibernatePBEEncryptorRegistry;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * Integration tests for all encrypted connection provider implementations.
+ * <p>
+ * Executes round-trip testing using Hibernate and an embedded instance of
+ * HSQLDB as the database with the encrypted connection providers wired in
+ * to verify transparent integration of the configuration encryption
+ * functionality.
+ * </p>
+ * 
+ * @author Hemant Padmanabhan
+ * @since 1.0.0
+ */
 public class EncryptedConnectionProviderImplIT {
 	
 	@Before
