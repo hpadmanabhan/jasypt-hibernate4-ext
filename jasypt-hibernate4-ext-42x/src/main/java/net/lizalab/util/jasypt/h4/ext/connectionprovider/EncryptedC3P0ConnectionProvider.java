@@ -37,7 +37,6 @@ import org.slf4j.LoggerFactory;
  * encrypted manner in the <tt>hibernate.cfg.xml</tt> or
  * <tt>hibernate.properties</tt> files.
  * </p>
- * <p>
  * The parameters that can be encrypted are:
  * <ul>
  * <li><tt>hibernate.connection.driver_class</tt></li>
@@ -45,7 +44,6 @@ import org.slf4j.LoggerFactory;
  * <li><tt>hibernate.connection.username</tt></li>
  * <li><tt>hibernate.connection.password</tt></li>
  * </ul>
- * </p>
  * <p>
  * The name of the PBE encryptor (decryptor, in fact) must be set in the
  * property <tt>hibernate.connection.encryptor_registered_name</tt> in
@@ -59,34 +57,32 @@ import org.slf4j.LoggerFactory;
  * An example <tt>hibernate.cfg.xml</tt> file configured to use this connection
  * provider implementation:
  * </p>
- * <p>
  * 
  * <pre>
- *  &lt;hibernate-configuration>
+ *  &lt;hibernate-configuration&gt;
  * 
- *    &lt;session-factory>
+ *    &lt;session-factory&gt;
  * 
  *      <!-- Database connection settings -->
- *      &lt;property name="<b>hibernate.connection.provider_class</b>">net.lizalab.util.jasypt.h4.ext.connectionprovider.EncryptedC3P0ConnectionProvider&lt;/property>
- *      &lt;property name="<b>hibernate.connection.encryptor_registered_name</b>">stringEncryptor&lt;/property>
- *      &lt;property name="hibernate.connection.driver_class">org.postgresql.Driver&lt;/property>
- *      &lt;property name="hibernate.connection.url">jdbc:postgresql://localhost/mydatabase&lt;/property>
- *      &lt;property name="hibernate.connection.username">myuser&lt;/property>
- *      &lt;property name="hibernate.connection.password">ENC(T6DAe34NasW==)&lt;/property>
- *      &lt;property name="hibernate.c3p0.min_size">5&lt;/property>
- *      &lt;property name="hibernate.c3p0.max_size">20&lt;/property>
- *      &lt;property name="hibernate.c3p0.timeout">1800&lt;/property>
- *      &lt;property name="hibernate.c3p0.max_statements">50&lt;/property>
+ *      &lt;property name="<b>hibernate.connection.provider_class</b>"&gt;net.lizalab.util.jasypt.h4.ext.connectionprovider.EncryptedC3P0ConnectionProvider&lt;/property&gt;
+ *      &lt;property name="<b>hibernate.connection.encryptor_registered_name</b>"&gt;stringEncryptor&lt;/property&gt;
+ *      &lt;property name="hibernate.connection.driver_class"&gt;org.postgresql.Driver&lt;/property&gt;
+ *      &lt;property name="hibernate.connection.url"&gt;jdbc:postgresql://localhost/mydatabase&lt;/property&gt;
+ *      &lt;property name="hibernate.connection.username"&gt;myuser&lt;/property&gt;
+ *      &lt;property name="hibernate.connection.password"&gt;ENC(T6DAe34NasW==)&lt;/property&gt;
+ *      &lt;property name="hibernate.c3p0.min_size"&gt;5&lt;/property&gt;
+ *      &lt;property name="hibernate.c3p0.max_size"&gt;20&lt;/property&gt;
+ *      &lt;property name="hibernate.c3p0.timeout"&gt;1800&lt;/property&gt;
+ *      &lt;property name="hibernate.c3p0.max_statements"&gt;50&lt;/property&gt;
  *      ...
  *      
- *    &lt;/session-factory>
+ *    &lt;/session-factory&gt;
  *    
  *    ...
  *    
- *  &lt;/hibernate-configuration>
+ *  &lt;/hibernate-configuration&gt;
  * </pre>
  * 
- * </p>
  * <p>
  * <b>IMPORTANT:</b> Encrypted values specified must be enclosed in 'ENC(...)'
  * as shown above for them to be picked up and decrypted.
